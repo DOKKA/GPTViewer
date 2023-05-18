@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello, world!</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="solarized-light.min.css">
+    <script src="highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <style>
+      #mydiv {
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div id="mydiv"></div>
+    
+    <script>
+      function addText(btext){
+        var decodedString = atob(btext);
+        myspan.innerHTML = myspan.innerHTML + decodedString;
+      }
+      
+      function highlightMatches(regex, text) {
+        var replaced = text.replace(regex, '<pre><code>$&</code></pre>');
+        if(replaced.length > text.length){
+          replaced = replaced.replace(/\`\`\`\w+/gi,'');
+          replaced = replaced.replace(/\`\`\`/gi,'');
+          setTimeout(function(){
+            hljs.highlightAll();
+          },1000)
+        }
+        return replaced;
+      }
+
+      function appendTextToSpan(text) {
+        var decodedString = atob(text);
+        const spanElement = document.getElementById('mydiv');
+
+        if (spanElement) {
+          var zzz = spanElement.innerHTML +decodedString;
+          let regex = /\`\`\`[\s\S]+\`\`\`/g;
+          zzz = highlightMatches(regex, zzz);
+          spanElement.innerHTML = zzz;
+          console.log(zzz);
+        } else {
+          console.error('Span element not found.');
+        }
+      }
+      
+    </script>
+  </body>
+</html>
