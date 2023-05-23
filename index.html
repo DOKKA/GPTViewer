@@ -28,6 +28,11 @@ function addText(btext) {
     const mydiv = document.getElementById('mydiv');
     var textNode = document.createTextNode(decodedString);
     mydiv.appendChild(textNode);
+    if(window.prevcode){
+      setTimeout(function(){
+        hljs.highlightAll();
+      },100);
+    }
     window.prevcode = null;
 }
 
