@@ -23,38 +23,38 @@
     <div id="mydiv"></div>
     
     <script>
-      function addText(btext){
-        var decodedString = atob(btext);
-        myspan.innerHTML = myspan.innerHTML + decodedString;
-      }
-      
-      function highlightMatches(regex, text) {
-        var replaced = text.replace(regex, '<pre><code>$&</code></pre>');
-        if(replaced.length > text.length){
-          replaced = replaced.replace(/\`\`\`\w+/gi,'');
-          replaced = replaced.replace(/\`\`\`/gi,'');
-          setTimeout(function(){
-            hljs.highlightAll();
-          },1000)
-        }
-        return replaced;
-      }
+function addText(btext) {
+    var decodedString = atob(btext);
+    const mydiv = document.getElementById('mydiv');
+    var textNode = document.createTextNode(decodedString);
+    mydiv.appendChild(textNode);
+    window.prevcode = null;
+}
 
-      function appendTextToSpan(text) {
-        var decodedString = atob(text);
-        const spanElement = document.getElementById('mydiv');
+function addCode(btext) {
+    var decodedString = atob(btext);
+    const mydiv = document.getElementById('mydiv');
 
-        if (spanElement) {
-          var zzz = spanElement.innerHTML +decodedString;
-          let regex = /\`\`\`[\s\S]+\`\`\`/g;
-          zzz = highlightMatches(regex, zzz);
-          spanElement.innerHTML = zzz;
-          console.log(zzz);
-        } else {
-          console.error('Span element not found.');
-        }
-      }
-      
+    if (window.prevcode) {
+        var textNode = document.createTextNode(decodedString);
+        window.prevcode.appendChild(textNode);
+    } else {
+        // Step 1: Create the required elements
+        var preElement = document.createElement("pre");
+        var codeElement = document.createElement("code");
+
+        // Step 2: Set the content of the code element
+        codeElement.textContent = decodedString;
+
+        // Step 3: Append the code element to the pre element
+        preElement.appendChild(codeElement);
+
+        // Step 4: Append the pre element to the body elementgitff
+        mydiv.appendChild(preElement);
+
+        window.prevcode = codeElement;
+    }
+}
     </script>
   </body>
 </html>
