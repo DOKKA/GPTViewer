@@ -23,6 +23,9 @@
     <div id="mydiv"></div>
     
     <script>
+      function scrollToBottom() {
+  window.scrollTo(0, document.body.scrollHeight);
+}
 function addText(btext) {
     var decodedString = atob(btext);
     const mydiv = document.getElementById('mydiv');
@@ -34,6 +37,7 @@ function addText(btext) {
       },100);
     }
     window.prevcode = null;
+    scrollToBottom();
 }
 
 function addCode(btext) {
@@ -59,6 +63,7 @@ function addCode(btext) {
 
         window.prevcode = codeElement;
     }
+    scrollToBottom();
 }
     </script>
   </body>
